@@ -164,12 +164,8 @@ const getDiscoveryPath = (api) => {
  * @returns {closure} Closure to find files by extension
  */
 function fileByExtension(extension) {
-  //log('error', 'DEBUG: fileByExtension: extension='+extension);
   return function(file){
-    //log('error', 'DEBUG: fileByExtension: path.extname='+path.extname(file).toLowerCase());
-    //log('error', 'DEBUG: fileByExtension: extension check1='+(path.extname(file).toLowerCase() === extension));
-    //log('error', 'DEBUG: fileByExtension: extension check2='+(path.extname(file).toLowerCase() == extension));
-    path.extname(file).toLowerCase() === extension.toLowerCase();
+    return path.extname(file).toLowerCase() === extension.toLowerCase();
   };
 }
 
