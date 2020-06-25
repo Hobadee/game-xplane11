@@ -9,6 +9,9 @@
 //                          Constants                          //
 /////////////////////////////////////////////////////////////////
 
+// Version of this game extension
+const VERSION = '0.0.2'
+
 // # Game Information
 // Nexus Mods domain for the game. e.g. nexusmods.com/bloodstainedritualofthenight
 const GAME_ID = 'xplane11';
@@ -74,7 +77,7 @@ function main(context) {
 		logo: 'gameart.png',
     executable: () => 'X-Plane.exe',
     final: false,
-    version: '0.0.1',
+    version: VERSION,
 		requiredFiles: [
 		  'X-Plane.exe',
 		  'Resources/default data/earth_nav.dat'
@@ -181,22 +184,12 @@ function fileByExtension(extension) {
  */
 function isAircraftModType(instructions){
   
-  log('warn', 'DEBUG: Running isAircraftModType');
-
   const filtered = instructions.filter(
     instr => (instr.type === 'copy')
     &&
     (path.extname(instr.source) === AIRCRAFT_FILE_EXT)
   );
   return Promise.resolve(filtered.length > 0);
-/*
-  const isAircraftModType = instructions.find(
-    inst => (inst.type === 'copy')
-    &&
-    inst.source.endsWith(AIRCRAFT_FILE_EXT)
-  );
-  return Promise.resolve(isAircraftModType !== undefined);
-*/
 }
 
 
