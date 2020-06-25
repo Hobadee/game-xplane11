@@ -61,6 +61,7 @@ const MODDING_TOOLS = [
  * This is the main function Vortex will run when detecting the game extension. 
  */
 function main(context) {
+
 	// https://nexus-mods.github.io/vortex-api/interfaces/igame.html
 	context.registerGame({
 		contributed: 'Hobadee',
@@ -209,19 +210,12 @@ function isAircraftModType(instructions){
  */
 function testAircraftMod(files, gameId) {
   
-  log('error', 'DEBUG: Running testAircraftMod');
-
   // Make sure we're able to support this mod.
   let supported =
     (gameId === GAME_ID)
     &&
     // Simple check to see if we have an "acf" file in the mod
     (files.find(fileByExtension(AIRCRAFT_FILE_EXT)) !== undefined);
-
-  //log('error', 'DEBUG: gameID Check=' + (gameId === GAME_ID));
-  //log('error', 'DEBUG: files=' + files);
-  log('error', 'DEBUG: files Check=' + files.find(fileByExtension(AIRCRAFT_FILE_EXT)));
-  log('error', 'DEBUG: Supported=' + supported);
   
   // This is what we are returning:
   // https://nexus-mods.github.io/vortex-api/interfaces/isupportedresult.html
@@ -245,8 +239,6 @@ function testAircraftMod(files, gameId) {
  */
 function installAircraft(files, destinationPath, gameId, progressDelegate) {
 
-  log('error', 'DEBUG: Running installAircraft');
-
   const modFile = files.find(fileByExtension(AIRCRAFT_FILE_EXT));
   const idx = modFile.indexOf(path.basename(modFile));
   const rootPath = path.dirname(modFile);
@@ -255,7 +247,7 @@ function installAircraft(files, destinationPath, gameId, progressDelegate) {
   const filtered = files.filter(file => 
     ((file.indexOf(rootPath) !== -1) 
     && (!file.endsWith(path.sep))));
-
+  
   const instructions = filtered.map(file => {
     return {
       type: 'copy',
@@ -264,7 +256,7 @@ function installAircraft(files, destinationPath, gameId, progressDelegate) {
     };
   });
 
-  return Promise.resolve(instructions);
+  return Promise.resolve({instructions});
 }
 
 
